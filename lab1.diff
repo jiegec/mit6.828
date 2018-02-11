@@ -1,0 +1,401 @@
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+index e69de29..f5d622f 100644
+--- a/.vscode/settings.json
++++ b/.vscode/settings.json
+@@ -0,0 +1,3 @@
++{
++    "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
++}
+\ No newline at end of file
+diff --git a/GNUmakefile b/GNUmakefile
+old mode 100644
+new mode 100755
+diff --git a/compile_commands.json b/compile_commands.json
+index e69de29..0f7f0fd 100644
+--- a/compile_commands.json
++++ b/compile_commands.json
+@@ -0,0 +1,236 @@
++[
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/entrypgdir.c"
++  ], 
++  "file": "kern/entrypgdir.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/entrypgdir.c"
++  ], 
++  "file": "kern/entrypgdir.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/init.c"
++  ], 
++  "file": "kern/init.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/init.c"
++  ], 
++  "file": "kern/init.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/console.c"
++  ], 
++  "file": "kern/console.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/console.c"
++  ], 
++  "file": "kern/console.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/monitor.c"
++  ], 
++  "file": "kern/monitor.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/monitor.c"
++  ], 
++  "file": "kern/monitor.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/printf.c"
++  ], 
++  "file": "kern/printf.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/printf.c"
++  ], 
++  "file": "kern/printf.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "kern/kdebug.c"
++  ], 
++  "file": "kern/kdebug.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/kdebug.c"
++  ], 
++  "file": "kern/kdebug.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "lib/printfmt.c"
++  ], 
++  "file": "lib/printfmt.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/printfmt.c"
++  ], 
++  "file": "lib/printfmt.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "lib/readline.c"
++  ], 
++  "file": "lib/readline.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/readline.c"
++  ], 
++  "file": "lib/readline.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "lib/string.c"
++  ], 
++  "file": "lib/string.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab1", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/string.c"
++  ], 
++  "file": "lib/string.c"
++ }
++]
+diff --git a/kern/init.c b/kern/init.c
+index 30cb91d..17c5f0f 100644
+--- a/kern/init.c
++++ b/kern/init.c
+@@ -33,7 +33,7 @@ i386_init(void)
+ 	// Can't call cprintf until after we do this!
+ 	cons_init();
+ 
+-	cprintf("6828 decimal is %o octal!\n", 6828);
++	cprintf("\n6828 decimal is %o octal!\n", 6828);
+ 
+ 	// Test the stack backtrace function (lab 1 only)
+ 	test_backtrace(5);
+diff --git a/kern/kdebug.c b/kern/kdebug.c
+index 9547143..b532039 100644
+--- a/kern/kdebug.c
++++ b/kern/kdebug.c
+@@ -179,6 +179,12 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
+ 	//	Look at the STABS documentation and <inc/stab.h> to find
+ 	//	which one.
+ 	// Your code here.
++	stab_binsearch(stabs, &lline, &rline, N_SLINE, addr);
++	if (lline <= rline) {
++		info->eip_line = stabs[lline].n_desc;
++	} else {
++		return -1;
++	}
+ 
+ 
+ 	// Search backwards from the line number for the relevant filename
+diff --git a/kern/monitor.c b/kern/monitor.c
+index e137e92..028293f 100644
+--- a/kern/monitor.c
++++ b/kern/monitor.c
+@@ -13,7 +13,6 @@
+ 
+ #define CMDBUF_SIZE 80  // enough for one VGA text line
+ 
+-
+ struct Command {
+   const char* name;
+   const char* desc;
+@@ -24,13 +23,12 @@ struct Command {
+ static struct Command commands[] = {
+     {"help", "Display this list of commands", mon_help},
+     {"kerninfo", "Display information about the kernel", mon_kerninfo},
++    {"backtrace", "Display current backtrace of the kernel", mon_backtrace},
+ };
+ 
+ /***** Implementations of basic kernel monitor commands *****/
+ 
+-int
+-mon_help(int argc, char **argv, struct Trapframe *tf)
+-{
++int mon_help(int argc, char** argv, struct Trapframe* tf) {
+   int i;
+ 
+   for (i = 0; i < ARRAY_SIZE(commands); i++)
+@@ -38,9 +36,7 @@ mon_help(int argc, char **argv, struct Trapframe *tf)
+   return 0;
+ }
+ 
+-int
+-mon_kerninfo(int argc, char **argv, struct Trapframe *tf)
+-{
++int mon_kerninfo(int argc, char** argv, struct Trapframe* tf) {
+   extern char _start[], entry[], etext[], edata[], end[];
+ 
+   cprintf("Special kernel symbols:\n");
+@@ -54,23 +50,35 @@ mon_kerninfo(int argc, char **argv, struct Trapframe *tf)
+   return 0;
+ }
+ 
+-int
+-mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+-{
++int mon_backtrace(int argc, char** argv, struct Trapframe* tf) {
+   // Your code here.
+-	return 0;
++  cprintf("Stack backtrace:\n");
++  uintptr_t current_ebp = read_ebp();
++  struct Eipdebuginfo info;
++  while (current_ebp) {
++    uintptr_t eip = *((uintptr_t*)(current_ebp + 4));
++    cprintf("  ebp %08x  eip %08x  args", current_ebp, eip);
++    for (int i = 0; i < 5; i++) {
++      uintptr_t arg = *((uintptr_t*)(current_ebp + 8 + i * 4));
++      cprintf(" %08x", arg);
+     }
++    current_ebp = *(uintptr_t*)current_ebp;
++    cprintf("\n");
+ 
+-
++    if (debuginfo_eip(eip, &info) == 0) {
++      cprintf("         %s:%d: %.*s+%d\n", info.eip_file, info.eip_line,
++              info.eip_fn_namelen, info.eip_fn_name, eip - info.eip_fn_addr);
++    }
++  }
++  return 0;
++}
+ 
+   /***** Kernel monitor command interpreter *****/
+ 
+ #define WHITESPACE "\t\r\n "
+ #define MAXARGS 16
+ 
+-static int
+-runcmd(char *buf, struct Trapframe *tf)
+-{
++static int runcmd(char* buf, struct Trapframe* tf) {
+   int argc;
+   char* argv[MAXARGS];
+   int i;
+@@ -107,15 +115,12 @@ runcmd(char *buf, struct Trapframe *tf)
+   return 0;
+ }
+ 
+-void
+-monitor(struct Trapframe *tf)
+-{
++void monitor(struct Trapframe* tf) {
+   char* buf;
+ 
+   cprintf("Welcome to the JOS kernel monitor!\n");
+   cprintf("Type 'help' for a list of commands.\n");
+ 
+-
+   while (1) {
+     buf = readline("K> ");
+     if (buf != NULL)
+diff --git a/lib/printfmt.c b/lib/printfmt.c
+index 28e01c9..af23abe 100644
+--- a/lib/printfmt.c
++++ b/lib/printfmt.c
+@@ -206,10 +206,9 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
+ 		// (unsigned) octal
+ 		case 'o':
+ 			// Replace this with your code.
+-			putch('X', putdat);
+-			putch('X', putdat);
+-			putch('X', putdat);
+-			break;
++			num = getuint(&ap, lflag);
++			base = 8;
++			goto number;
+ 
+ 		// pointer
+ 		case 'p':
