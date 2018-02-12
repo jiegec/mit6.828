@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for dir in lab1
+for dir in lab1 lab2
 do
     echo ${dir}
     cd ${dir}
