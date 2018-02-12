@@ -1,0 +1,180 @@
+diff --git a/.vscode/settings.json b/.vscode/settings.json
+index e69de29..f5d622f 100644
+--- a/.vscode/settings.json
++++ b/.vscode/settings.json
+@@ -0,0 +1,3 @@
++{
++    "cquery.cacheDirectory": "${workspaceFolder}/.vscode/cquery_cached_index/"
++}
+\ No newline at end of file
+diff --git a/Makefile b/Makefile
+index 06eea5d..6555fe4 100644
+--- a/Makefile
++++ b/Makefile
+@@ -174,6 +174,7 @@ UPROGS=\
+ 	_usertests\
+ 	_wc\
+ 	_zombie\
++	_date\
+ 
+ fs.img: mkfs README $(UPROGS)
+ 	./mkfs fs.img README $(UPROGS)
+diff --git a/date.c b/date.c
+index e69de29..ea0abdf 100644
+--- a/date.c
++++ b/date.c
+@@ -0,0 +1,19 @@
++#include "types.h"
++#include "user.h"
++#include "date.h"
++
++int
++main(int argc, char *argv[])
++{
++  struct rtcdate r;
++
++  if (date(&r)) {
++    printf(2, "date failed\n");
++    exit();
++  }
++
++  // your code to print the time in any format you like...
++  printf(1, "%d-%d-%d %d:%d:%d\n", r.year, r.month, r.day, r.hour, r.minute, r.second);
++
++  exit();
++}
+\ No newline at end of file
+diff --git a/syscall.c b/syscall.c
+index ee85261..be36607 100644
+--- a/syscall.c
++++ b/syscall.c
+@@ -49,7 +49,9 @@ fetchstr(uint addr, char **pp)
+ int
+ argint(int n, int *ip)
+ {
+-  return fetchint((myproc()->tf->esp) + 4 + 4*n, ip);
++  int result =  fetchint((myproc()->tf->esp) + 4 + 4*n, ip);
++  cprintf(" int: %d", result);
++  return result;
+ }
+ 
+ // Fetch the nth word-sized system call argument as a pointer
+@@ -66,6 +68,7 @@ argptr(int n, char **pp, int size)
+   if(size < 0 || (uint)i >= curproc->sz || (uint)i+size > curproc->sz)
+     return -1;
+   *pp = (char*)i;
++  cprintf(" ptr: %d", i);
+   return 0;
+ }
+ 
+@@ -79,7 +82,9 @@ argstr(int n, char **pp)
+   int addr;
+   if(argint(n, &addr) < 0)
+     return -1;
+-  return fetchstr(addr, pp);
++  int result = fetchstr(addr, pp);
++  cprintf(" str: %s", *pp);
++  return result;
+ }
+ 
+ extern int sys_chdir(void);
+@@ -103,6 +108,7 @@ extern int sys_unlink(void);
+ extern int sys_wait(void);
+ extern int sys_write(void);
+ extern int sys_uptime(void);
++extern int sys_date(void);
+ 
+ static int (*syscalls[])(void) = {
+ [SYS_fork]    sys_fork,
+@@ -126,6 +132,32 @@ static int (*syscalls[])(void) = {
+ [SYS_link]    sys_link,
+ [SYS_mkdir]   sys_mkdir,
+ [SYS_close]   sys_close,
++[SYS_date]    sys_date,
++};
++
++static char *syscall_names[] = {
++[SYS_fork]    "fork",
++[SYS_exit]    "exit",
++[SYS_wait]    "wait",
++[SYS_pipe]    "pipe",
++[SYS_read]    "read",
++[SYS_kill]    "kill",
++[SYS_exec]    "exec",
++[SYS_fstat]   "fstat",
++[SYS_chdir]   "chdir",
++[SYS_dup]     "dup",
++[SYS_getpid]  "getpid",
++[SYS_sbrk]    "sbrk",
++[SYS_sleep]   "sleep",
++[SYS_uptime]  "uptime",
++[SYS_open]    "open",
++[SYS_write]   "write",
++[SYS_mknod]   "mknod",
++[SYS_unlink]  "unlink",
++[SYS_link]    "link",
++[SYS_mkdir]   "mkdir",
++[SYS_close]   "close",
++[SYS_date]    "date",
+ };
+ 
+ void
+@@ -136,6 +168,7 @@ syscall(void)
+ 
+   num = curproc->tf->eax;
+   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
++    cprintf("\n%s -> %d args:", syscall_names[num], num);
+     curproc->tf->eax = syscalls[num]();
+   } else {
+     cprintf("%d %s: unknown sys call %d\n",
+diff --git a/syscall.h b/syscall.h
+index bc5f356..c946425 100644
+--- a/syscall.h
++++ b/syscall.h
+@@ -20,3 +20,4 @@
+ #define SYS_link   19
+ #define SYS_mkdir  20
+ #define SYS_close  21
++#define SYS_date  21
+diff --git a/sysproc.c b/sysproc.c
+index 0686d29..fe8c886 100644
+--- a/sysproc.c
++++ b/sysproc.c
+@@ -89,3 +89,16 @@ sys_uptime(void)
+   release(&tickslock);
+   return xticks;
+ }
++
++int
++sys_date(void)
++{
++  char *addr;
++  if (argptr(0, &addr, sizeof(struct rtcdate)) < 0)
++    return -1;
++  
++  struct rtcdate *time = (struct rtcdate *)addr;
++  cmostime(time);
++
++  return 0;
++}
+diff --git a/user.h b/user.h
+index f45b8d5..1f62601 100644
+--- a/user.h
++++ b/user.h
+@@ -23,6 +23,7 @@ int getpid(void);
+ char* sbrk(int);
+ int sleep(int);
+ int uptime(void);
++int date(struct rtcdate *);
+ 
+ // ulib.c
+ int stat(char*, struct stat*);
+diff --git a/usys.S b/usys.S
+index 8bfd8a1..ba76d54 100644
+--- a/usys.S
++++ b/usys.S
+@@ -29,3 +29,4 @@ SYSCALL(getpid)
+ SYSCALL(sbrk)
+ SYSCALL(sleep)
+ SYSCALL(uptime)
++SYSCALL(date)
