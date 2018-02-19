@@ -19,6 +19,565 @@ index 06eea5d..6555fe4 100644
  
  fs.img: mkfs README $(UPROGS)
  	./mkfs fs.img README $(UPROGS)
+diff --git a/compile_commands.json b/compile_commands.json
+index e69de29..f47b475 100644
+--- a/compile_commands.json
++++ b/compile_commands.json
+@@ -0,0 +1,554 @@
++[
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-nostdinc", 
++   "-I.", 
++   "-c", 
++   "bootmain.c"
++  ], 
++  "file": "bootmain.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "bio.c"
++  ], 
++  "file": "bio.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "console.c"
++  ], 
++  "file": "console.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "exec.c"
++  ], 
++  "file": "exec.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "file.c"
++  ], 
++  "file": "file.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "fs.c"
++  ], 
++  "file": "fs.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "ide.c"
++  ], 
++  "file": "ide.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "ioapic.c"
++  ], 
++  "file": "ioapic.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "kalloc.c"
++  ], 
++  "file": "kalloc.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "kbd.c"
++  ], 
++  "file": "kbd.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "lapic.c"
++  ], 
++  "file": "lapic.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "log.c"
++  ], 
++  "file": "log.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "main.c"
++  ], 
++  "file": "main.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "mp.c"
++  ], 
++  "file": "mp.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "picirq.c"
++  ], 
++  "file": "picirq.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "pipe.c"
++  ], 
++  "file": "pipe.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "proc.c"
++  ], 
++  "file": "proc.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "sleeplock.c"
++  ], 
++  "file": "sleeplock.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "spinlock.c"
++  ], 
++  "file": "spinlock.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "string.c"
++  ], 
++  "file": "string.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "syscall.c"
++  ], 
++  "file": "syscall.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "sysfile.c"
++  ], 
++  "file": "sysfile.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "sysproc.c"
++  ], 
++  "file": "sysproc.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "trap.c"
++  ], 
++  "file": "trap.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "uart.c"
++  ], 
++  "file": "uart.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "vm.c"
++  ], 
++  "file": "vm.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Werror", 
++   "-Wall", 
++   "mkfs.c"
++  ], 
++  "file": "mkfs.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "ulib.c"
++  ], 
++  "file": "ulib.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "printf.c"
++  ], 
++  "file": "printf.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "umalloc.c"
++  ], 
++  "file": "umalloc.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "cat.c"
++  ], 
++  "file": "cat.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "echo.c"
++  ], 
++  "file": "echo.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "forktest.c"
++  ], 
++  "file": "forktest.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "grep.c"
++  ], 
++  "file": "grep.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "init.c"
++  ], 
++  "file": "init.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "kill.c"
++  ], 
++  "file": "kill.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "ln.c"
++  ], 
++  "file": "ln.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "ls.c"
++  ], 
++  "file": "ls.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "mkdir.c"
++  ], 
++  "file": "mkdir.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "rm.c"
++  ], 
++  "file": "rm.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "sh.c"
++  ], 
++  "file": "sh.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "stressfs.c"
++  ], 
++  "file": "stressfs.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "usertests.c"
++  ], 
++  "file": "usertests.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "wc.c"
++  ], 
++  "file": "wc.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "zombie.c"
++  ], 
++  "file": "zombie.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/xv6-public", 
++  "arguments": [
++   "cc", 
++   "-Wall", 
++   "-m32", 
++   "-Werror", 
++   "-c", 
++   "date.c"
++  ], 
++  "file": "date.c"
++ }
++]
 diff --git a/date.c b/date.c
 index e69de29..ea0abdf 100644
 --- a/date.c
