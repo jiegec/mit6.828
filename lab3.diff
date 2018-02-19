@@ -1,0 +1,975 @@
+diff --git a/compile_commands.json b/compile_commands.json
+index 75d4d8a..a77b69f 100644
+--- a/compile_commands.json
++++ b/compile_commands.json
+@@ -1,6 +1,6 @@
+ [
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/entrypgdir.c"
+@@ -8,7 +8,7 @@
+   "file": "kern/entrypgdir.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -26,7 +26,7 @@
+   "file": "kern/entrypgdir.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/init.c"
+@@ -34,7 +34,7 @@
+   "file": "kern/init.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -52,7 +52,7 @@
+   "file": "kern/init.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/console.c"
+@@ -60,7 +60,7 @@
+   "file": "kern/console.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -78,7 +78,7 @@
+   "file": "kern/console.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/monitor.c"
+@@ -86,7 +86,7 @@
+   "file": "kern/monitor.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -104,7 +104,7 @@
+   "file": "kern/monitor.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/pmap.c"
+@@ -112,7 +112,7 @@
+   "file": "kern/pmap.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -130,7 +130,33 @@
+   "file": "kern/pmap.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "kern/env.c"
++  ], 
++  "file": "kern/env.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/env.c"
++  ], 
++  "file": "kern/env.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/kclock.c"
+@@ -138,7 +164,7 @@
+   "file": "kern/kclock.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -156,7 +182,7 @@
+   "file": "kern/kclock.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/printf.c"
+@@ -164,7 +190,7 @@
+   "file": "kern/printf.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -182,7 +208,59 @@
+   "file": "kern/printf.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "kern/trap.c"
++  ], 
++  "file": "kern/trap.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/trap.c"
++  ], 
++  "file": "kern/trap.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "kern/syscall.c"
++  ], 
++  "file": "kern/syscall.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/syscall.c"
++  ], 
++  "file": "kern/syscall.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "kern/kdebug.c"
+@@ -190,7 +268,7 @@
+   "file": "kern/kdebug.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -208,7 +286,7 @@
+   "file": "kern/kdebug.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "lib/printfmt.c"
+@@ -216,7 +294,7 @@
+   "file": "lib/printfmt.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -234,7 +312,7 @@
+   "file": "lib/printfmt.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "lib/readline.c"
+@@ -242,7 +320,7 @@
+   "file": "lib/readline.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -260,7 +338,7 @@
+   "file": "lib/readline.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "lib/string.c"
+@@ -268,7 +346,7 @@
+   "file": "lib/string.c"
+  }, 
+  {
+-  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "directory": "/Volumes/Data/mit6.828/lab3", 
+   "arguments": [
+    "cc", 
+    "-nostdinc", 
+@@ -284,5 +362,401 @@
+    "lib/string.c"
+   ], 
+   "file": "lib/string.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/console.c"
++  ], 
++  "file": "lib/console.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/libmain.c"
++  ], 
++  "file": "lib/libmain.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/exit.c"
++  ], 
++  "file": "lib/exit.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/panic.c"
++  ], 
++  "file": "lib/panic.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/printf.c"
++  ], 
++  "file": "lib/printf.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/printfmt.c"
++  ], 
++  "file": "lib/printfmt.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/readline.c"
++  ], 
++  "file": "lib/readline.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/string.c"
++  ], 
++  "file": "lib/string.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "lib/syscall.c"
++  ], 
++  "file": "lib/syscall.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/hello.c"
++  ], 
++  "file": "user/hello.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/buggyhello.c"
++  ], 
++  "file": "user/buggyhello.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/buggyhello2.c"
++  ], 
++  "file": "user/buggyhello2.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/evilhello.c"
++  ], 
++  "file": "user/evilhello.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/testbss.c"
++  ], 
++  "file": "user/testbss.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/divzero.c"
++  ], 
++  "file": "user/divzero.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/breakpoint.c"
++  ], 
++  "file": "user/breakpoint.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/softint.c"
++  ], 
++  "file": "user/softint.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/badsegment.c"
++  ], 
++  "file": "user/badsegment.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/faultread.c"
++  ], 
++  "file": "user/faultread.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/faultreadkernel.c"
++  ], 
++  "file": "user/faultreadkernel.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/faultwrite.c"
++  ], 
++  "file": "user/faultwrite.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
++   "user/faultwritekernel.c"
++  ], 
++  "file": "user/faultwritekernel.c"
+  }
+ ]
+diff --git a/kern/init.c b/kern/init.c
+index 3d4122c..5a6f573 100644
+--- a/kern/init.c
++++ b/kern/init.c
+@@ -26,7 +26,7 @@ i386_init(void)
+ 	// Can't call cprintf until after we do this!
+ 	cons_init();
+ 
+-	cprintf("6828 decimal is %o octal!\n", 6828);
++	cprintf("\n6828 decimal is %o octal!\n", 6828);
+ 
+ 	// Lab 2 memory management initialization functions
+ 	mem_init();
+diff --git a/kern/kdebug.c b/kern/kdebug.c
+index f4ee8ee..09b82c4 100644
+--- a/kern/kdebug.c
++++ b/kern/kdebug.c
+@@ -204,6 +204,12 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
+ 	//	Look at the STABS documentation and <inc/stab.h> to find
+ 	//	which one.
+ 	// Your code here.
++	stab_binsearch(stabs, &lline, &rline, N_SLINE, addr);
++	if (lline <= rline) {
++		info->eip_line = stabs[lline].n_desc;
++	} else {
++		return -1;
++	}
+ 
+ 
+ 	// Search backwards from the line number for the relevant filename
+diff --git a/kern/monitor.c b/kern/monitor.c
+index 4e00796..ec5bec8 100644
+--- a/kern/monitor.c
++++ b/kern/monitor.c
+@@ -25,6 +25,7 @@ struct Command {
+ static struct Command commands[] = {
+ 	{ "help", "Display this list of commands", mon_help },
+ 	{ "kerninfo", "Display information about the kernel", mon_kerninfo },
++	{ "backtrace", "Display current backtrace of the kernel", mon_backtrace },
+ };
+ 
+ /***** Implementations of basic kernel monitor commands *****/
+@@ -59,6 +60,24 @@ int
+ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
+ {
+ 	// Your code here.
++    cprintf("Stack backtrace:\n");
++    uintptr_t current_ebp = read_ebp();
++    struct Eipdebuginfo info;
++    while (current_ebp) {
++      uintptr_t eip = *((uintptr_t*)(current_ebp + 4));
++      cprintf("  ebp %08x  eip %08x  args", current_ebp, eip);
++      for (int i = 0; i < 5; i++) {
++        uintptr_t arg = *((uintptr_t*)(current_ebp + 8 + i * 4));
++        cprintf(" %08x", arg);
++      }
++      current_ebp = *(uintptr_t*)current_ebp;
++      cprintf("\n");
++ 
++      if (debuginfo_eip(eip, &info) == 0) {
++        cprintf("         %s:%d: %.*s+%d\n", info.eip_file, info.eip_line,
++                info.eip_fn_namelen, info.eip_fn_name, eip - info.eip_fn_addr);
++      }
++    }
+     return 0;
+  }
+ 
+diff --git a/kern/pmap.c b/kern/pmap.c
+index 1716265..38eb746 100644
+--- a/kern/pmap.c
++++ b/kern/pmap.c
+@@ -104,7 +104,14 @@ boot_alloc(uint32_t n)
+ 	//
+ 	// LAB 2: Your code here.
+ 
+-	return NULL;
++	result = nextfree;
++	nextfree = ROUNDUP(nextfree + n, PGSIZE);
++
++	if (PADDR(nextfree) > npages * PGSIZE) {
++		panic("Out of memory");
++	}
++
++	return result;
+ }
+ 
+ // Set up a two-level page table:
+@@ -126,7 +133,7 @@ mem_init(void)
+ 	i386_detect_memory();
+ 
+ 	// Remove this line when you're ready to test this function.
+-	panic("mem_init: This function is not finished\n");
++	// panic("mem_init: This function is not finished\n");
+ 
+ 	//////////////////////////////////////////////////////////////////////
+ 	// create initial page directory.
+@@ -149,6 +156,8 @@ mem_init(void)
+ 	// array.  'npages' is the number of physical pages in memory.  Use memset
+ 	// to initialize all fields of each struct PageInfo to 0.
+ 	// Your code goes here:
++	pages = (struct PageInfo*) boot_alloc(sizeof(struct PageInfo) * npages);
++	memset(pages, 0, sizeof(struct PageInfo) * npages);
+ 
+ 
+ 	//////////////////////////////////////////////////////////////////////
+@@ -177,6 +186,8 @@ mem_init(void)
+ 	//      (ie. perm = PTE_U | PTE_P)
+ 	//    - pages itself -- kernel RW, user NONE
+ 	// Your code goes here:
++	boot_map_region(kern_pgdir, UPAGES, ROUNDUP(sizeof(struct PageInfo) * npages, PGSIZE),
++					PADDR(pages), PTE_U);
+ 
+ 	//////////////////////////////////////////////////////////////////////
+ 	// Map the 'envs' array read-only by the user at linear address UENVS
+@@ -197,6 +208,7 @@ mem_init(void)
+ 	//       overwrite memory.  Known as a "guard page".
+ 	//     Permissions: kernel RW, user NONE
+ 	// Your code goes here:
++	boot_map_region(kern_pgdir, KSTACKTOP-KSTKSIZE, KSTKSIZE, PADDR(bootstack), PTE_W);
+ 
+ 	//////////////////////////////////////////////////////////////////////
+ 	// Map all of physical memory at KERNBASE.
+@@ -206,6 +218,7 @@ mem_init(void)
+ 	// we just set up the mapping anyway.
+ 	// Permissions: kernel RW, user NONE
+ 	// Your code goes here:
++	boot_map_region(kern_pgdir, KERNBASE, -KERNBASE, 0, PTE_W);
+ 
+ 	// Check that the initial page directory has been set up correctly.
+ 	check_kern_pgdir();
+@@ -265,8 +278,12 @@ page_init(void)
+ 	// NB: DO NOT actually touch the physical memory corresponding to
+ 	// free pages!
+ 	size_t i;
++	physaddr_t first_free_page = PADDR(boot_alloc(0));
+ 	for (i = 0; i < npages; i++) {
+ 		pages[i].pp_ref = 0;
++		physaddr_t current_paddr = page2pa(&pages[i]);
++		if (i == 0 || (IOPHYSMEM <= current_paddr && current_paddr < first_free_page))
++			continue;
+ 		pages[i].pp_link = page_free_list;
+ 		page_free_list = &pages[i];
+ 	}
+@@ -288,6 +305,17 @@ struct PageInfo *
+ page_alloc(int alloc_flags)
+ {
+ 	// Fill this function in
++	if (page_free_list) {
++		struct PageInfo *result = page_free_list;
++		page_free_list = result->pp_link;
++		result->pp_link = 0;
++
++		if (alloc_flags & ALLOC_ZERO) {
++			memset(page2kva(result), 0, PGSIZE);
++		}
++
++		return result;
++	}
+ 	return 0;
+ }
+ 
+@@ -301,6 +329,12 @@ page_free(struct PageInfo *pp)
+ 	// Fill this function in
+ 	// Hint: You may want to panic if pp->pp_ref is nonzero or
+ 	// pp->pp_link is not NULL.
++	if (pp->pp_ref != 0 || pp->pp_link) {
++		panic("page_free with nonzero refcount or nonnull link");
++	}
++
++	pp->pp_link = page_free_list;
++	page_free_list = pp;
+ }
+ 
+ //
+@@ -340,6 +374,28 @@ pte_t *
+ pgdir_walk(pde_t *pgdir, const void *va, int create)
+ {
+ 	// Fill this function in
++	pde_t pde = pgdir[PDX(va)];
++	if (pde & PTE_P) {
++		physaddr_t pte_pa = PTE_ADDR(pde);
++		pte_t *pte = KADDR(pte_pa);
++		return &pte[PTX(va)];
++	} else {
++
++		// not present yet
++		if (create) {
++			struct PageInfo *page = page_alloc(true);
++			if (page) {
++				pte_t *new_pte = (pte_t *)page2kva(page);
++				pgdir[PDX(va)] = PADDR(new_pte) | PTE_W | PTE_U | PTE_P;
++				page->pp_ref ++;
++				return &new_pte[PTX(va)];
++			} else {
++				return NULL;
++			}
++		} else {
++			return NULL;
++		}
++	}
+ 	return NULL;
+ }
+ 
+@@ -358,6 +414,13 @@ static void
+ boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
+ {
+ 	// Fill this function in
++	// Beware overflow!
++	for (uintptr_t i = 0, addr_va = va, addr_pa = pa;i < size;i += PGSIZE, addr_va += PGSIZE, addr_pa += PGSIZE) {
++		pte_t *pte = pgdir_walk(pgdir, (void *)addr_va, true);
++		if (pte) {
++			*pte = addr_pa | perm | PTE_P;
++		}
++	}
+ }
+ 
+ //
+@@ -389,8 +452,28 @@ int
+ page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
+ {
+ 	// Fill this function in
++	pte_t *pte = pgdir_walk(pgdir, va, true);
++	if (pte) {
++		if (*pte & PTE_P) {
++			// already mapped
++			physaddr_t mapped_addr = PTE_ADDR(*pte);
++			if (mapped_addr == page2pa(pp)) {
++				// already done
++				// update perm
++				*pte = page2pa(pp) | perm | PTE_P;
++				tlb_invalidate(pgdir, va);
+ 				return 0;
+ 			}
++			page_remove(pgdir, va);
++		}
++
++		pp->pp_ref ++;
++		*pte = page2pa(pp) | perm | PTE_P;
++		tlb_invalidate(pgdir, va);
++		return 0;
++	}
++	return -E_NO_MEM;
++}
+ 
+ //
+ // Return the page mapped at virtual address 'va'.
+@@ -407,6 +490,15 @@ struct PageInfo *
+ page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)
+ {
+ 	// Fill this function in
++	pte_t *pte = pgdir_walk(pgdir, va, false);
++	if (pte) {
++		if (*pte & PTE_P) {
++			if (pte_store) {
++				*pte_store = pte;
++			}
++			return pa2page(PTE_ADDR(*pte));
++		}
++	}
+ 	return NULL;
+ }
+ 
+@@ -429,6 +521,13 @@ void
+ page_remove(pde_t *pgdir, void *va)
+ {
+ 	// Fill this function in
++	pte_t *pte;
++	struct PageInfo *page = page_lookup(pgdir, va, &pte);
++	if (page) {
++		page_decref(page);
++		*pte = 0;
++		tlb_invalidate(pgdir, va);
++	}
+ }
+ 
+ //
+diff --git a/lib/printfmt.c b/lib/printfmt.c
+index 28e01c9..af23abe 100644
+--- a/lib/printfmt.c
++++ b/lib/printfmt.c
+@@ -206,10 +206,9 @@ vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap)
+ 		// (unsigned) octal
+ 		case 'o':
+ 			// Replace this with your code.
+-			putch('X', putdat);
+-			putch('X', putdat);
+-			putch('X', putdat);
+-			break;
++			num = getuint(&ap, lflag);
++			base = 8;
++			goto number;
+ 
+ 		// pointer
+ 		case 'p':
