@@ -1,3 +1,35 @@
+diff --git a/GNUmakefile b/GNUmakefile
+index 448771a..1f566d3 100644
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -26,22 +26,22 @@ TOP = .
+ # Cross-compiler jos toolchain
+ #
+ # This Makefile will automatically use the cross-compiler toolchain
+-# installed as 'i386-jos-elf-*', if one exists.  If the host tools ('gcc',
++# installed as 'i386-elf-*', if one exists.  If the host tools ('gcc',
+ # 'objdump', and so forth) compile for a 32-bit x86 ELF target, that will
+ # be detected as well.  If you have the right compiler toolchain installed
+ # using a different name, set GCCPREFIX explicitly in conf/env.mk
+ 
+ # try to infer the correct GCCPREFIX
+ ifndef GCCPREFIX
+-GCCPREFIX := $(shell if i386-jos-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/dev/null 2>&1; \
+-	then echo 'i386-jos-elf-'; \
++GCCPREFIX := $(shell if i386-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/dev/null 2>&1; \
++	then echo 'i386-elf-'; \
+ 	elif objdump -i 2>&1 | grep 'elf32-i386' >/dev/null 2>&1; \
+ 	then echo ''; \
+ 	else echo "***" 1>&2; \
+ 	echo "*** Error: Couldn't find an i386-*-elf version of GCC/binutils." 1>&2; \
+-	echo "*** Is the directory with i386-jos-elf-gcc in your PATH?" 1>&2; \
++	echo "*** Is the directory with i386-elf-gcc in your PATH?" 1>&2; \
+ 	echo "*** If your i386-*-elf toolchain is installed with a command" 1>&2; \
+-	echo "*** prefix other than 'i386-jos-elf-', set your GCCPREFIX" 1>&2; \
++	echo "*** prefix other than 'i386-elf-', set your GCCPREFIX" 1>&2; \
+ 	echo "*** environment variable to that prefix and run 'make' again." 1>&2; \
+ 	echo "*** To turn off this error, run 'gmake GCCPREFIX= ...'." 1>&2; \
+ 	echo "***" 1>&2; exit 1; fi)
 diff --git a/compile_commands.json b/compile_commands.json
 index 75d4d8a..a77b69f 100644
 --- a/compile_commands.json
@@ -679,6 +711,31 @@ index 75d4d8a..a77b69f 100644
 +  "file": "user/faultwritekernel.c"
   }
  ]
+diff --git a/kern/env.c b/kern/env.c
+index db2fda9..3421e64 100644
+--- a/kern/env.c
++++ b/kern/env.c
+@@ -116,6 +116,11 @@ env_init(void)
+ {
+ 	// Set up envs array
+ 	// LAB 3: Your code here.
++	for (int i = NENV - 1;i >= 0;i++) {
++		envs[i].env_id = 0;
++		envs[i].env_link = env_free_list;
++		env_free_list = &envs[i];
++	}
+ 
+ 	// Per-CPU part of the initialization
+ 	env_init_percpu();
+@@ -179,6 +184,8 @@ env_setup_vm(struct Env *e)
+ 	//    - The functions in kern/pmap.h are handy.
+ 
+ 	// LAB 3: Your code here.
++	p->pp_ref ++;
++	e->env_pgdir = (pde_t *)page2kva(p);
+ 
+ 	// UVPT maps the env's own page table read-only.
+ 	// Permissions: kernel R, user R
 diff --git a/kern/init.c b/kern/init.c
 index 3d4122c..5a6f573 100644
 --- a/kern/init.c
@@ -747,7 +804,7 @@ index 4e00796..ec5bec8 100644
   }
  
 diff --git a/kern/pmap.c b/kern/pmap.c
-index 1716265..38eb746 100644
+index 1716265..2dd937c 100644
 --- a/kern/pmap.c
 +++ b/kern/pmap.c
 @@ -104,7 +104,14 @@ boot_alloc(uint32_t n)
@@ -775,7 +832,7 @@ index 1716265..38eb746 100644
  
  	//////////////////////////////////////////////////////////////////////
  	// create initial page directory.
-@@ -149,6 +156,8 @@ mem_init(void)
+@@ -149,11 +156,15 @@ mem_init(void)
  	// array.  'npages' is the number of physical pages in memory.  Use memset
  	// to initialize all fields of each struct PageInfo to 0.
  	// Your code goes here:
@@ -784,7 +841,14 @@ index 1716265..38eb746 100644
  
  
  	//////////////////////////////////////////////////////////////////////
-@@ -177,6 +186,8 @@ mem_init(void)
+ 	// Make 'envs' point to an array of size 'NENV' of 'struct Env'.
+ 	// LAB 3: Your code here.
++	envs = (struct Env*) boot_alloc(sizeof(struct Env) * NENV);
++	memset(envs, 0, sizeof(struct Env) * NENV);
+ 
+ 	//////////////////////////////////////////////////////////////////////
+ 	// Now that we've allocated the initial kernel data structures, we set
+@@ -177,6 +188,8 @@ mem_init(void)
  	//      (ie. perm = PTE_U | PTE_P)
  	//    - pages itself -- kernel RW, user NONE
  	// Your code goes here:
@@ -793,7 +857,15 @@ index 1716265..38eb746 100644
  
  	//////////////////////////////////////////////////////////////////////
  	// Map the 'envs' array read-only by the user at linear address UENVS
-@@ -197,6 +208,7 @@ mem_init(void)
+@@ -185,6 +198,7 @@ mem_init(void)
+ 	//    - the new image at UENVS  -- kernel R, user R
+ 	//    - envs itself -- kernel RW, user NONE
+ 	// LAB 3: Your code here.
++	boot_map_region(kern_pgdir, UENVS, ROUNDUP(sizeof(struct Env) * NENV, PGSIZE), PADDR(envs), PTE_U);
+ 
+ 	//////////////////////////////////////////////////////////////////////
+ 	// Use the physical memory that 'bootstack' refers to as the kernel
+@@ -197,6 +211,7 @@ mem_init(void)
  	//       overwrite memory.  Known as a "guard page".
  	//     Permissions: kernel RW, user NONE
  	// Your code goes here:
@@ -801,7 +873,7 @@ index 1716265..38eb746 100644
  
  	//////////////////////////////////////////////////////////////////////
  	// Map all of physical memory at KERNBASE.
-@@ -206,6 +218,7 @@ mem_init(void)
+@@ -206,6 +221,7 @@ mem_init(void)
  	// we just set up the mapping anyway.
  	// Permissions: kernel RW, user NONE
  	// Your code goes here:
@@ -809,7 +881,7 @@ index 1716265..38eb746 100644
  
  	// Check that the initial page directory has been set up correctly.
  	check_kern_pgdir();
-@@ -265,8 +278,12 @@ page_init(void)
+@@ -265,8 +281,12 @@ page_init(void)
  	// NB: DO NOT actually touch the physical memory corresponding to
  	// free pages!
  	size_t i;
@@ -822,7 +894,7 @@ index 1716265..38eb746 100644
  		pages[i].pp_link = page_free_list;
  		page_free_list = &pages[i];
  	}
-@@ -288,6 +305,17 @@ struct PageInfo *
+@@ -288,6 +308,17 @@ struct PageInfo *
  page_alloc(int alloc_flags)
  {
  	// Fill this function in
@@ -840,7 +912,7 @@ index 1716265..38eb746 100644
  	return 0;
  }
  
-@@ -301,6 +329,12 @@ page_free(struct PageInfo *pp)
+@@ -301,6 +332,12 @@ page_free(struct PageInfo *pp)
  	// Fill this function in
  	// Hint: You may want to panic if pp->pp_ref is nonzero or
  	// pp->pp_link is not NULL.
@@ -853,7 +925,7 @@ index 1716265..38eb746 100644
  }
  
  //
-@@ -340,6 +374,28 @@ pte_t *
+@@ -340,6 +377,28 @@ pte_t *
  pgdir_walk(pde_t *pgdir, const void *va, int create)
  {
  	// Fill this function in
@@ -882,7 +954,7 @@ index 1716265..38eb746 100644
  	return NULL;
  }
  
-@@ -358,6 +414,13 @@ static void
+@@ -358,6 +417,13 @@ static void
  boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
  {
  	// Fill this function in
@@ -896,7 +968,7 @@ index 1716265..38eb746 100644
  }
  
  //
-@@ -389,8 +452,28 @@ int
+@@ -389,8 +455,28 @@ int
  page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
  {
  	// Fill this function in
@@ -925,7 +997,7 @@ index 1716265..38eb746 100644
  
  //
  // Return the page mapped at virtual address 'va'.
-@@ -407,6 +490,15 @@ struct PageInfo *
+@@ -407,6 +493,15 @@ struct PageInfo *
  page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)
  {
  	// Fill this function in
@@ -941,7 +1013,7 @@ index 1716265..38eb746 100644
  	return NULL;
  }
  
-@@ -429,6 +521,13 @@ void
+@@ -429,6 +524,13 @@ void
  page_remove(pde_t *pgdir, void *va)
  {
  	// Fill this function in
