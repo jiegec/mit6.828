@@ -40,103 +40,142 @@ index 448771a..d7eb34c 100644
  pre-qemu: .gdbinit
  
 diff --git a/compile_commands.json b/compile_commands.json
-index 75d4d8a..b3e5451 100644
+index e69de29..b3e5451 100644
 --- a/compile_commands.json
 +++ b/compile_commands.json
-@@ -1,6 +1,6 @@
- [
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
+@@ -0,0 +1,762 @@
++[
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/entrypgdir.c"
-@@ -8,7 +8,7 @@
-   "file": "kern/entrypgdir.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/entrypgdir.c"
++  ], 
++  "file": "kern/entrypgdir.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -26,7 +26,7 @@
-   "file": "kern/entrypgdir.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/entrypgdir.c"
++  ], 
++  "file": "kern/entrypgdir.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/init.c"
-@@ -34,7 +34,7 @@
-   "file": "kern/init.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/init.c"
++  ], 
++  "file": "kern/init.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -52,7 +52,7 @@
-   "file": "kern/init.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/init.c"
++  ], 
++  "file": "kern/init.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/console.c"
-@@ -60,7 +60,7 @@
-   "file": "kern/console.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/console.c"
++  ], 
++  "file": "kern/console.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -78,7 +78,7 @@
-   "file": "kern/console.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/console.c"
++  ], 
++  "file": "kern/console.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/monitor.c"
-@@ -86,7 +86,7 @@
-   "file": "kern/monitor.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/monitor.c"
++  ], 
++  "file": "kern/monitor.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -104,7 +104,7 @@
-   "file": "kern/monitor.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/monitor.c"
++  ], 
++  "file": "kern/monitor.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/pmap.c"
-@@ -112,7 +112,7 @@
-   "file": "kern/pmap.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/pmap.c"
++  ], 
++  "file": "kern/pmap.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -130,7 +130,33 @@
-   "file": "kern/pmap.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/pmap.c"
++  ], 
++  "file": "kern/pmap.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
 +  "arguments": [
 +   "cc", 
@@ -164,41 +203,57 @@ index 75d4d8a..b3e5451 100644
 + }, 
 + {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/kclock.c"
-@@ -138,7 +164,7 @@
-   "file": "kern/kclock.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/kclock.c"
++  ], 
++  "file": "kern/kclock.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -156,7 +182,7 @@
-   "file": "kern/kclock.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/kclock.c"
++  ], 
++  "file": "kern/kclock.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/printf.c"
-@@ -164,7 +190,7 @@
-   "file": "kern/printf.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/printf.c"
++  ], 
++  "file": "kern/printf.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -182,7 +208,59 @@
-   "file": "kern/printf.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/printf.c"
++  ], 
++  "file": "kern/printf.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
 +  "arguments": [
 +   "cc", 
@@ -252,76 +307,107 @@ index 75d4d8a..b3e5451 100644
 + }, 
 + {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "kern/kdebug.c"
-@@ -190,7 +268,7 @@
-   "file": "kern/kdebug.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "kern/kdebug.c"
++  ], 
++  "file": "kern/kdebug.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -208,7 +286,7 @@
-   "file": "kern/kdebug.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "kern/kdebug.c"
++  ], 
++  "file": "kern/kdebug.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "lib/printfmt.c"
-@@ -216,7 +294,7 @@
-   "file": "lib/printfmt.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "lib/printfmt.c"
++  ], 
++  "file": "lib/printfmt.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -234,7 +312,7 @@
-   "file": "lib/printfmt.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/printfmt.c"
++  ], 
++  "file": "lib/printfmt.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "lib/readline.c"
-@@ -242,7 +320,7 @@
-   "file": "lib/readline.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "lib/readline.c"
++  ], 
++  "file": "lib/readline.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -260,7 +338,7 @@
-   "file": "lib/readline.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/readline.c"
++  ], 
++  "file": "lib/readline.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "lib/string.c"
-@@ -268,7 +346,7 @@
-   "file": "lib/string.c"
-  }, 
-  {
--  "directory": "/Volumes/Data/mit6.828/lab2", 
++  "arguments": [
++   "cc", 
++   "lib/string.c"
++  ], 
++  "file": "lib/string.c"
++ }, 
++ {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
-   "arguments": [
-    "cc", 
-    "-nostdinc", 
-@@ -284,5 +362,401 @@
-    "lib/string.c"
-   ], 
-   "file": "lib/string.c"
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_KERNEL", 
++   "-c", 
++   "lib/string.c"
++  ], 
++  "file": "lib/string.c"
 + }, 
 + {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
@@ -718,8 +804,8 @@ index 75d4d8a..b3e5451 100644
 +   "user/faultwritekernel.c"
 +  ], 
 +  "file": "user/faultwritekernel.c"
-  }
- ]
++ }
++]
 diff --git a/kern/env.c b/kern/env.c
 index db2fda9..a631289 100644
 --- a/kern/env.c
@@ -894,7 +980,7 @@ index 4e00796..ec5bec8 100644
   }
  
 diff --git a/kern/pmap.c b/kern/pmap.c
-index 1716265..1ac3bc4 100644
+index 1716265..d0e4225 100644
 --- a/kern/pmap.c
 +++ b/kern/pmap.c
 @@ -104,7 +104,14 @@ boot_alloc(uint32_t n)
@@ -1071,16 +1157,16 @@ index 1716265..1ac3bc4 100644
 +				// update perm
 +				*pte = page2pa(pp) | perm | PTE_P;
 +				tlb_invalidate(pgdir, va);
- 				return 0;
- 			}
++				return 0;
++			}
 +			page_remove(pgdir, va);
 +		}
 +
 +		pp->pp_ref ++;
 +		*pte = page2pa(pp) | perm | PTE_P;
 +		tlb_invalidate(pgdir, va);
-+		return 0;
-+	}
+ 		return 0;
+ 	}
 +	return -E_NO_MEM;
 +}
  
@@ -1116,11 +1202,47 @@ index 1716265..1ac3bc4 100644
  }
  
  //
+@@ -467,7 +568,27 @@ int
+ user_mem_check(struct Env *env, const void *va, size_t len, int perm)
+ {
+ 	// LAB 3: Your code here.
++	const void *start_va = ROUNDDOWN(va, PGSIZE);
++	const void *end_va = ROUNDUP(va+len, PGSIZE);
+ 
++	for (const void *current_va = start_va;current_va < end_va;current_va += PGSIZE) {
++		if (current_va >= (const void *)ULIM) {
++			user_mem_check_addr = (uintptr_t)(current_va < va ? va : current_va);
++			return -E_FAULT;
++		}
++		pde_t pde = env->env_pgdir[PDX(current_va)];
++		if (pde & PTE_P) {
++			physaddr_t pte_pa = PTE_ADDR(pde);
++			pte_t *pte = KADDR(pte_pa);
++			if (!(pte[PTX(current_va)] & (perm | PTE_P))) {
++				user_mem_check_addr = (uintptr_t)(current_va < va ? va : current_va);
++				return -E_FAULT;
++			}
++		} else {
++			user_mem_check_addr = (uintptr_t)(current_va < va ? va : current_va);
++			return -E_FAULT;
++		}
++	}
+ 	return 0;
+ }
+ 
 diff --git a/kern/syscall.c b/kern/syscall.c
-index 414d489..026ee7c 100644
+index 414d489..62d905a 100644
 --- a/kern/syscall.c
 +++ b/kern/syscall.c
-@@ -70,9 +70,16 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4,
+@@ -21,6 +21,7 @@ sys_cputs(const char *s, size_t len)
+ 	// Destroy the environment if not.
+ 
+ 	// LAB 3: Your code here.
++	user_mem_assert(curenv, s, len, 0);
+ 
+ 	// Print the string supplied by the user.
+ 	cprintf("%.*s", len, s);
+@@ -70,9 +71,16 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4,
  	// Return any appropriate return value.
  	// LAB 3: Your code here.
  
@@ -1140,7 +1262,7 @@ index 414d489..026ee7c 100644
  		return -E_INVAL;
  	}
 diff --git a/kern/trap.c b/kern/trap.c
-index e27b556..79e0654 100644
+index e27b556..9eea55c 100644
 --- a/kern/trap.c
 +++ b/kern/trap.c
 @@ -65,6 +65,44 @@ trap_init(void)
@@ -1206,6 +1328,17 @@ index e27b556..79e0654 100644
  
  	// Unexpected trap: The user process or the kernel has a bug.
  	print_trapframe(tf);
+@@ -205,6 +254,10 @@ page_fault_handler(struct Trapframe *tf)
+ 	// Handle kernel-mode page faults.
+ 
+ 	// LAB 3: Your code here.
++	if ((tf->tf_cs & 0x3) == 0) {
++		// fault in kernel
++		panic("page fault in kernel");
++	}
+ 
+ 	// We've already handled kernel-mode exceptions, so if we get here,
+ 	// the page fault happened in user mode.
 diff --git a/kern/trapentry.S b/kern/trapentry.S
 index 22fc640..c3d0eda 100644
 --- a/kern/trapentry.S
