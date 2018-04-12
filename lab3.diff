@@ -926,10 +926,30 @@ index 3d4122c..5a6f573 100644
  	// Lab 2 memory management initialization functions
  	mem_init();
 diff --git a/kern/kdebug.c b/kern/kdebug.c
-index f4ee8ee..09b82c4 100644
+index f4ee8ee..dcb12bd 100644
 --- a/kern/kdebug.c
 +++ b/kern/kdebug.c
-@@ -204,6 +204,12 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
+@@ -142,6 +142,8 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
+ 		// Make sure this memory is valid.
+ 		// Return -1 if it is not.  Hint: Call user_mem_check.
+ 		// LAB 3: Your code here.
++		if (user_mem_check(curenv, usd, sizeof(struct UserStabData), 0) != 0)
++			return -1;
+ 
+ 		stabs = usd->stabs;
+ 		stab_end = usd->stab_end;
+@@ -150,6 +152,10 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
+ 
+ 		// Make sure the STABS and string table memory is valid.
+ 		// LAB 3: Your code here.
++		if (user_mem_check(curenv, stabs, stab_end - stabs, 0) != 0)
++			return -1;
++		if (user_mem_check(curenv, stabstr, stabstr_end - stabstr, 0) != 0)
++			return -1;
+ 	}
+ 
+ 	// String table validity checks
+@@ -204,6 +210,12 @@ debuginfo_eip(uintptr_t addr, struct Eipdebuginfo *info)
  	//	Look at the STABS documentation and <inc/stab.h> to find
  	//	which one.
  	// Your code here.
