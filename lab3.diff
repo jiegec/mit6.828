@@ -1,5 +1,5 @@
 diff --git a/GNUmakefile b/GNUmakefile
-index 448771a..1f566d3 100644
+index 448771a..d7eb34c 100644
 --- a/GNUmakefile
 +++ b/GNUmakefile
 @@ -26,22 +26,22 @@ TOP = .
@@ -30,8 +30,17 @@ index 448771a..1f566d3 100644
  	echo "*** environment variable to that prefix and run 'make' again." 1>&2; \
  	echo "*** To turn off this error, run 'gmake GCCPREFIX= ...'." 1>&2; \
  	echo "***" 1>&2; exit 1; fi)
+@@ -150,7 +150,7 @@ QEMUOPTS += $(QEMUEXTRA)
+ 	sed "s/localhost:1234/localhost:$(GDBPORT)/" < $^ > $@
+ 
+ gdb:
+-	gdb -n -x .gdbinit
++	i386-elf-gdb -n -x .gdbinit
+ 
+ pre-qemu: .gdbinit
+ 
 diff --git a/compile_commands.json b/compile_commands.json
-index 75d4d8a..a77b69f 100644
+index 75d4d8a..b3e5451 100644
 --- a/compile_commands.json
 +++ b/compile_commands.json
 @@ -1,6 +1,6 @@
@@ -328,6 +337,24 @@ index 75d4d8a..a77b69f 100644
 +   "-m32", 
 +   "-DJOS_USER", 
 +   "-c", 
++   "user/hello.c"
++  ], 
++  "file": "user/hello.c"
++ }, 
++ {
++  "directory": "/Volumes/Data/mit6.828/lab3", 
++  "arguments": [
++   "cc", 
++   "-nostdinc", 
++   "-I.", 
++   "-std=gnu99", 
++   "-Wall", 
++   "-Wno-format", 
++   "-Wno-unused", 
++   "-Werror", 
++   "-m32", 
++   "-DJOS_USER", 
++   "-c", 
 +   "lib/console.c"
 +  ], 
 +  "file": "lib/console.c"
@@ -475,24 +502,6 @@ index 75d4d8a..a77b69f 100644
 +   "lib/syscall.c"
 +  ], 
 +  "file": "lib/syscall.c"
-+ }, 
-+ {
-+  "directory": "/Volumes/Data/mit6.828/lab3", 
-+  "arguments": [
-+   "cc", 
-+   "-nostdinc", 
-+   "-I.", 
-+   "-std=gnu99", 
-+   "-Wall", 
-+   "-Wno-format", 
-+   "-Wno-unused", 
-+   "-Werror", 
-+   "-m32", 
-+   "-DJOS_USER", 
-+   "-c", 
-+   "user/hello.c"
-+  ], 
-+  "file": "user/hello.c"
 + }, 
 + {
 +  "directory": "/Volumes/Data/mit6.828/lab3", 
@@ -712,14 +721,14 @@ index 75d4d8a..a77b69f 100644
   }
  ]
 diff --git a/kern/env.c b/kern/env.c
-index db2fda9..3421e64 100644
+index db2fda9..a631289 100644
 --- a/kern/env.c
 +++ b/kern/env.c
 @@ -116,6 +116,11 @@ env_init(void)
  {
  	// Set up envs array
  	// LAB 3: Your code here.
-+	for (int i = NENV - 1;i >= 0;i++) {
++	for (int i = NENV - 1;i >= 0;i--) {
 +		envs[i].env_id = 0;
 +		envs[i].env_link = env_free_list;
 +		env_free_list = &envs[i];
@@ -727,15 +736,96 @@ index db2fda9..3421e64 100644
  
  	// Per-CPU part of the initialization
  	env_init_percpu();
-@@ -179,6 +184,8 @@ env_setup_vm(struct Env *e)
+@@ -179,6 +184,9 @@ env_setup_vm(struct Env *e)
  	//    - The functions in kern/pmap.h are handy.
  
  	// LAB 3: Your code here.
 +	p->pp_ref ++;
 +	e->env_pgdir = (pde_t *)page2kva(p);
++	memcpy(e->env_pgdir + PDX(UTOP), kern_pgdir + PDX(UTOP), PGSIZE - PDX(UTOP) * sizeof(pde_t));
  
  	// UVPT maps the env's own page table read-only.
  	// Permissions: kernel R, user R
+@@ -267,6 +275,15 @@ region_alloc(struct Env *e, void *va, size_t len)
+ 	//   'va' and 'len' values that are not page-aligned.
+ 	//   You should round va down, and round (va + len) up.
+ 	//   (Watch out for corner-cases!)
++	void *begin_va = ROUNDDOWN(va, PGSIZE);
++	void *end_va = ROUNDUP(va + len, PGSIZE);
++	for (void *current_va = begin_va;current_va < end_va;current_va += PGSIZE) {
++		struct PageInfo *page = page_alloc(0);
++		if (!page)
++			panic("unable to alloc page");
++		if (page_insert(e->env_pgdir, page, current_va, PTE_W | PTE_U) != 0)
++			panic("unable to insert page into env_pgdir");
++	}
+ }
+ 
+ //
+@@ -323,11 +340,33 @@ load_icode(struct Env *e, uint8_t *binary)
+ 	//  What?  (See env_run() and env_pop_tf() below.)
+ 
+ 	// LAB 3: Your code here.
++	struct Proghdr *ph, *eph;
++	struct Elf *hdr = (struct Elf *)binary;
++	uint32_t orig_cr3 = rcr3();
++	// switch to the env's pgdir
++	// so we can use memcpy below
++	lcr3(PADDR(e->env_pgdir));
++	if (hdr->e_magic != ELF_MAGIC)
++		panic("invalid elf header magic");
++
++	ph = (struct Proghdr *) ((uint8_t *) hdr + hdr->e_phoff);
++	eph = ph + hdr->e_phnum;
++	for (; ph < eph; ph++) {
++		if (ph->p_type == ELF_PROG_LOAD) {
++			region_alloc(e, (void *)ph->p_va, ph->p_memsz);
++			memset((void *)ph->p_va, 0, ph->p_memsz);
++			memcpy((void *)ph->p_va, binary + ph->p_offset, ph->p_filesz);
++		}
++	}
++
++	lcr3(orig_cr3);
++	e->env_tf.tf_eip = hdr->e_entry;
+ 
+ 	// Now map one page for the program's initial stack
+ 	// at virtual address USTACKTOP - PGSIZE.
+ 
+ 	// LAB 3: Your code here.
++	region_alloc(e, (void *)USTACKTOP-PGSIZE, PGSIZE);
+ }
+ 
+ //
+@@ -341,6 +380,11 @@ void
+ env_create(uint8_t *binary, enum EnvType type)
+ {
+ 	// LAB 3: Your code here.
++	struct Env *env;
++	if (env_alloc(&env, 0) != 0)
++		panic("env_alloc failed");
++	load_icode(env, binary);
++	env->env_type = type;
+ }
+ 
+ //
+@@ -457,7 +501,15 @@ env_run(struct Env *e)
+ 	//	e->env_tf to sensible values.
+ 
+ 	// LAB 3: Your code here.
+-
+-	panic("env_run not yet implemented");
++	if (e != curenv) {
++		if (curenv && curenv->env_status == ENV_RUNNING) {
++			curenv->env_status = ENV_RUNNABLE;
++		}
++		curenv = e;
++		curenv->env_status = ENV_RUNNING;
++		curenv->env_runs ++;
++		lcr3(PADDR(curenv->env_pgdir));
++	}
++	env_pop_tf(&curenv->env_tf);
+ }
+ 
 diff --git a/kern/init.c b/kern/init.c
 index 3d4122c..5a6f573 100644
 --- a/kern/init.c
@@ -804,7 +894,7 @@ index 4e00796..ec5bec8 100644
   }
  
 diff --git a/kern/pmap.c b/kern/pmap.c
-index 1716265..2dd937c 100644
+index 1716265..1ac3bc4 100644
 --- a/kern/pmap.c
 +++ b/kern/pmap.c
 @@ -104,7 +104,14 @@ boot_alloc(uint32_t n)
@@ -925,7 +1015,7 @@ index 1716265..2dd937c 100644
  }
  
  //
-@@ -340,6 +377,28 @@ pte_t *
+@@ -340,6 +377,27 @@ pte_t *
  pgdir_walk(pde_t *pgdir, const void *va, int create)
  {
  	// Fill this function in
@@ -935,7 +1025,6 @@ index 1716265..2dd937c 100644
 +		pte_t *pte = KADDR(pte_pa);
 +		return &pte[PTX(va)];
 +	} else {
-+
 +		// not present yet
 +		if (create) {
 +			struct PageInfo *page = page_alloc(true);
@@ -954,7 +1043,7 @@ index 1716265..2dd937c 100644
  	return NULL;
  }
  
-@@ -358,6 +417,13 @@ static void
+@@ -358,6 +416,13 @@ static void
  boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)
  {
  	// Fill this function in
@@ -968,7 +1057,7 @@ index 1716265..2dd937c 100644
  }
  
  //
-@@ -389,8 +455,28 @@ int
+@@ -389,8 +454,28 @@ int
  page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)
  {
  	// Fill this function in
@@ -997,7 +1086,7 @@ index 1716265..2dd937c 100644
  
  //
  // Return the page mapped at virtual address 'va'.
-@@ -407,6 +493,15 @@ struct PageInfo *
+@@ -407,6 +492,15 @@ struct PageInfo *
  page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)
  {
  	// Fill this function in
@@ -1013,7 +1102,7 @@ index 1716265..2dd937c 100644
  	return NULL;
  }
  
-@@ -429,6 +524,13 @@ void
+@@ -429,6 +523,13 @@ void
  page_remove(pde_t *pgdir, void *va)
  {
  	// Fill this function in
@@ -1027,6 +1116,101 @@ index 1716265..2dd937c 100644
  }
  
  //
+diff --git a/kern/trap.c b/kern/trap.c
+index e27b556..c0a393c 100644
+--- a/kern/trap.c
++++ b/kern/trap.c
+@@ -65,6 +65,44 @@ trap_init(void)
+ 	extern struct Segdesc gdt[];
+ 
+ 	// LAB 3: Your code here.
++	extern void trap_DIVIDE();
++	SETGATE(idt[T_DIVIDE], 0, GD_KT, trap_DIVIDE, 0);
++	extern void trap_DEBUG();
++	SETGATE(idt[T_DEBUG], 0, GD_KT, trap_DEBUG, 0);
++	extern void trap_NMI();
++	SETGATE(idt[T_NMI], 0, GD_KT, trap_NMI, 0);
++	extern void trap_BRKPT();
++	SETGATE(idt[T_BRKPT], 0, GD_KT, trap_BRKPT, 0);
++	extern void trap_OFLOW();
++	SETGATE(idt[T_OFLOW], 0, GD_KT, trap_OFLOW, 0);
++	extern void trap_BOUND();
++	SETGATE(idt[T_BOUND], 0, GD_KT, trap_BOUND, 0);
++	extern void trap_ILLOP();
++	SETGATE(idt[T_ILLOP], 0, GD_KT, trap_ILLOP, 0);
++	extern void trap_DEVICE();
++	SETGATE(idt[T_DEVICE], 0, GD_KT, trap_DEVICE, 0);
++	extern void trap_DBLFLT();
++	SETGATE(idt[T_DBLFLT], 0, GD_KT, trap_DBLFLT, 0);
++	extern void trap_TSS();
++	SETGATE(idt[T_TSS], 0, GD_KT, trap_TSS, 0);
++	extern void trap_SEGNP();
++	SETGATE(idt[T_SEGNP], 0, GD_KT, trap_SEGNP, 0);
++	extern void trap_STACK();
++	SETGATE(idt[T_STACK], 0, GD_KT, trap_STACK, 0);
++	extern void trap_GPFLT();
++	SETGATE(idt[T_GPFLT], 0, GD_KT, trap_GPFLT, 0);
++	extern void trap_PGFLT();
++	SETGATE(idt[T_PGFLT], 0, GD_KT, trap_PGFLT, 0);
++	extern void trap_FPERR();
++	SETGATE(idt[T_FPERR], 0, GD_KT, trap_FPERR, 0);
++	extern void trap_ALIGN();
++	SETGATE(idt[T_ALIGN], 0, GD_KT, trap_ALIGN, 0);
++	extern void trap_MCHK();
++	SETGATE(idt[T_MCHK], 0, GD_KT, trap_MCHK, 0);
++	extern void trap_SIMDERR();
++	SETGATE(idt[T_SIMDERR], 0, GD_KT, trap_SIMDERR, 0);
++	extern void trap_SYSCALL();
++	SETGATE(idt[T_SYSCALL], 0, GD_KT, trap_SYSCALL, 0);
+ 
+ 	// Per-CPU setup 
+ 	trap_init_percpu();
+diff --git a/kern/trapentry.S b/kern/trapentry.S
+index 22fc640..c3d0eda 100644
+--- a/kern/trapentry.S
++++ b/kern/trapentry.S
+@@ -47,9 +47,40 @@
+  * Lab 3: Your code here for generating entry points for the different traps.
+  */
+ 
++ TRAPHANDLER_NOEC(trap_DIVIDE, T_DIVIDE)
++ TRAPHANDLER_NOEC(trap_DEBUG, T_DEBUG)
++ TRAPHANDLER_NOEC(trap_NMI, T_NMI)
++ TRAPHANDLER_NOEC(trap_BRKPT, T_BRKPT)
++ TRAPHANDLER_NOEC(trap_OFLOW, T_OFLOW)
++ TRAPHANDLER_NOEC(trap_BOUND, T_BOUND)
++ TRAPHANDLER_NOEC(trap_ILLOP, T_ILLOP)
++ TRAPHANDLER_NOEC(trap_DEVICE, T_DEVICE)
++ TRAPHANDLER(trap_DBLFLT, T_DBLFLT)
++ TRAPHANDLER(trap_TSS, T_TSS)
++ TRAPHANDLER(trap_SEGNP, T_SEGNP)
++ TRAPHANDLER(trap_STACK, T_STACK)
++ TRAPHANDLER(trap_GPFLT, T_GPFLT)
++ TRAPHANDLER(trap_PGFLT, T_PGFLT)
++ TRAPHANDLER_NOEC(trap_FPERR, T_FPERR)
++ TRAPHANDLER_NOEC(trap_ALIGN, T_ALIGN)
++ TRAPHANDLER_NOEC(trap_MCHK, T_MCHK)
++ TRAPHANDLER_NOEC(trap_SIMDERR, T_SIMDERR)
++ TRAPHANDLER_NOEC(trap_SYSCALL, T_SYSCALL)
+ 
+ 
+ /*
+  * Lab 3: Your code here for _alltraps
+  */
+ 
++_alltraps:
++	pushw $0 // padding2
++	pushw %ds
++	pushw $0 // padding1
++	pushw %es
++	pushal
++
++	movl $GD_KD, %eax
++	movw %ax, %ds
++	movw %ax, %es
++	pushl %esp
++	call trap
+\ No newline at end of file
 diff --git a/lib/printfmt.c b/lib/printfmt.c
 index 28e01c9..af23abe 100644
 --- a/lib/printfmt.c
