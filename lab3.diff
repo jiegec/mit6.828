@@ -1116,8 +1116,31 @@ index 1716265..1ac3bc4 100644
  }
  
  //
+diff --git a/kern/syscall.c b/kern/syscall.c
+index 414d489..026ee7c 100644
+--- a/kern/syscall.c
++++ b/kern/syscall.c
+@@ -70,9 +70,16 @@ syscall(uint32_t syscallno, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4,
+ 	// Return any appropriate return value.
+ 	// LAB 3: Your code here.
+ 
+-	panic("syscall not implemented");
+-
+ 	switch (syscallno) {
++	case SYS_cputs:
++		sys_cputs((const char *)a1, a2);
++		return 0;
++	case SYS_cgetc:
++		return sys_cgetc();
++	case SYS_getenvid:
++		return sys_getenvid();
++	case SYS_env_destroy:
++		return sys_env_destroy(a1);
+ 	default:
+ 		return -E_INVAL;
+ 	}
 diff --git a/kern/trap.c b/kern/trap.c
-index e27b556..c0a393c 100644
+index e27b556..79e0654 100644
 --- a/kern/trap.c
 +++ b/kern/trap.c
 @@ -65,6 +65,44 @@ trap_init(void)
@@ -1131,7 +1154,7 @@ index e27b556..c0a393c 100644
 +	extern void trap_NMI();
 +	SETGATE(idt[T_NMI], 0, GD_KT, trap_NMI, 0);
 +	extern void trap_BRKPT();
-+	SETGATE(idt[T_BRKPT], 0, GD_KT, trap_BRKPT, 0);
++	SETGATE(idt[T_BRKPT], 0, GD_KT, trap_BRKPT, 3);
 +	extern void trap_OFLOW();
 +	SETGATE(idt[T_OFLOW], 0, GD_KT, trap_OFLOW, 0);
 +	extern void trap_BOUND();
@@ -1161,10 +1184,28 @@ index e27b556..c0a393c 100644
 +	extern void trap_SIMDERR();
 +	SETGATE(idt[T_SIMDERR], 0, GD_KT, trap_SIMDERR, 0);
 +	extern void trap_SYSCALL();
-+	SETGATE(idt[T_SYSCALL], 0, GD_KT, trap_SYSCALL, 0);
++	SETGATE(idt[T_SYSCALL], 0, GD_KT, trap_SYSCALL, 3);
  
  	// Per-CPU setup 
  	trap_init_percpu();
+@@ -144,6 +182,17 @@ trap_dispatch(struct Trapframe *tf)
+ {
+ 	// Handle processor exceptions.
+ 	// LAB 3: Your code here.
++	if (tf->tf_trapno == T_PGFLT) {
++		page_fault_handler(tf);
++		return;
++	} else if (tf->tf_trapno == T_BRKPT) {
++		monitor(tf);
++		return;
++	} else if (tf->tf_trapno == T_SYSCALL) {
++		tf->tf_regs.reg_eax = syscall(tf->tf_regs.reg_eax, tf->tf_regs.reg_edx, tf->tf_regs.reg_ecx,
++		        tf->tf_regs.reg_ebx, tf->tf_regs.reg_edi, tf->tf_regs.reg_esi);
++		return;
++	}
+ 
+ 	// Unexpected trap: The user process or the kernel has a bug.
+ 	print_trapframe(tf);
 diff --git a/kern/trapentry.S b/kern/trapentry.S
 index 22fc640..c3d0eda 100644
 --- a/kern/trapentry.S
@@ -1211,6 +1252,19 @@ index 22fc640..c3d0eda 100644
 +	pushl %esp
 +	call trap
 \ No newline at end of file
+diff --git a/lib/libmain.c b/lib/libmain.c
+index 8a14b29..2c57a4b 100644
+--- a/lib/libmain.c
++++ b/lib/libmain.c
+@@ -13,7 +13,7 @@ libmain(int argc, char **argv)
+ {
+ 	// set thisenv to point at our Env structure in envs[].
+ 	// LAB 3: Your code here.
+-	thisenv = 0;
++	thisenv = &envs[ENVX(sys_getenvid())];
+ 
+ 	// save the name of the program so that panic() can use it
+ 	if (argc > 0)
 diff --git a/lib/printfmt.c b/lib/printfmt.c
 index 28e01c9..af23abe 100644
 --- a/lib/printfmt.c
